@@ -178,32 +178,25 @@ function updateConclusions(stickData, switchData) {
         ) / 100;
     });
 
-
-
-
 }
 
 
 
-function runSimulations() {
-
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    function getRandomInt(min, max) {
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-    }
+}
+
+
+
+function runSimulationsA() {
 
     const pseudoRandomNumbers = [];
 
     for (let i = 0; i < numberOfGamesToSimulate; i++) {
         pseudoRandomNumbers.push(getRandomInt(1, 4));
-    }
-
-    const pseudoRandomNumberCount = [0, 0, 0];
-
-    for (const number of pseudoRandomNumbers) {
-        pseudoRandomNumberCount[number - 1]++;
     }
 
 
@@ -332,6 +325,76 @@ function runSimulations() {
     updateConclusions(stickSetup1CumulativeResults, switchSetup1CumulativeResults);
 
 }
+// End of function runSimulationsA
+
+
+
+function runSimulationsB() {
+
+    const playerInitialGuesses = [];
+    const winningDoors = [];
+
+    // A different set of PRNs, 1-3 inclusive, in each array:
+    for (let i = 0; i < numberOfGamesToSimulate; i++) {
+        playerInitialGuesses.push(getRandomInt(1, 4));
+        winningDoors.push(getRandomInt(1, 4));
+    }
+
+    const stickResults = [];
+    const switchResults = [];
+
+    // Simulation approach A logic, but tidied up:
+    playerInitialGuesses.forEach((playerInitialGuess, index) => {
+        if (winningDoors[index] === playerInitialGuess) {
+            // The player's initial guess was correct. (1/3 probability)
+            // This is the only case in which the "stick" strategy leads to a win.
+            // So we can immediately tally a win to the stick results:
+            stickResults.push(true);
+            // Conversely, this is the only case where the "switch" strategy leads to a loss.
+            // So we can immediately tally a loss to the switch results:
+            switchResults.push(false);
+        } else {
+            // The player's initial guess was incorrect. (2/3 probability)
+            // Sticking with an incorrect guess obviously means a loss is guaranteed.
+            // So we can immediately tally a loss to the stick results:
+            stickResults.push(false);
+            // Because the host must open a losing door, the "switch" strategy leads to a win.
+            // So we can immediately tally a win to the switch results:
+            switchResults.push(true);
+        }
+    });
+
+    // Set up cumulative data for scatter plot:
+
+    const stickCumulativeResults = [];
+    const switchCumulativeResults = [];
+
+    for (const result of stickResults) {
+        const previousVal = stickCumulativeResults[stickCumulativeResults.length - 1] || 0;
+        if (result === true) {
+            stickCumulativeResults.push(previousVal + 1);
+        } else {
+            stickCumulativeResults.push(previousVal);
+        }
+    }
+
+    for (const result of switchResults) {
+        const previousVal = switchCumulativeResults[switchCumulativeResults.length - 1] || 0;
+        if (result === true) {
+            switchCumulativeResults.push(previousVal + 1);
+        } else {
+            switchCumulativeResults.push(previousVal);
+        }
+    }
+
+    drawChart(stickCumulativeResults, switchCumulativeResults);
+
+    updateConclusions(stickCumulativeResults, switchCumulativeResults);
+
+}
+// End of function runSimulationsB
+
+
 
 let myChart = undefined;
 
@@ -355,7 +418,10 @@ formRangeEl.addEventListener('input', (event) => {
 formEl.addEventListener('submit', (event) => {
     event.preventDefault();
     numberOfGamesToSimulate = formRangeEl.value;
-    runSimulations();
+    //runSimulationsA();
+    runSimulationsB();
 });
 
-runSimulations();
+//runSimulationsA();
+
+runSimulationsB();
