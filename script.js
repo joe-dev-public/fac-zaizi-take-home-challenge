@@ -87,6 +87,100 @@ function drawChart(stickData, switchData) {
         config
     );
 
+
+
+    // Now draw the second chart
+    // It'll need new data to be generated: 10 randomised sets of x simulations
+    // plus a basic linear regression (Trend line) calc beneath?
+
+/*     const myLabels2 = [];
+    for (let i = 1; i <= numberOfSimulationSets; i++) {
+        myLabels.push(i);
+    }
+
+    const data = {
+        labels: myLabels,
+        datasets: [
+            {
+                label: '"Stick" strategy',
+                backgroundColor: 'rgb(255, 128, 0)',
+                //data: stickData,
+            },
+            {
+                label: '"Switch" strategy',
+                backgroundColor: 'rgb(0, 128, 255)',
+                //data: switchData,
+            },
+        ]
+    };
+
+    const config = {
+        type: 'scatter',
+        data: data,
+        options: {
+            events: [], // Don't need scatter point details on mouse hover
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Simulation set",
+                    },
+                },
+                y: {
+                    beginAtZero: true,
+                    suggestedMin: 0,
+                    //suggestedMax: numberOfGamesToSimulate,
+                    title: {
+                        display: true,
+                        text: 'Total number of switch wins / total number of stick wins',
+                    },
+                },
+            },
+        },
+    };
+
+    // Make the text a bit bigger:
+    Chart.defaults.font.size = 16;
+
+    if (myChart) {
+        // If chart already exists, destroy it before creating a new one:
+        myChart.destroy();
+    } 
+
+    myChart = new Chart(
+        document.getElementById('chart'),
+        config
+    ); */
+
+
+}
+
+
+
+function updateConclusions(stickData, switchData) {
+
+    document.querySelectorAll('.total-number-of-games').forEach((el) => {
+        el.innerText = numberOfGamesToSimulate;
+    });
+
+    document.querySelectorAll('.total-number-of-stick-wins').forEach((el) => {
+        el.innerText = stickData[stickData.length - 1];
+    });
+
+    document.querySelectorAll('.total-number-of-switch-wins').forEach((el) => {
+        el.innerText = switchData[switchData.length - 1];
+    });
+
+    // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+    document.querySelectorAll('.switch-vs-stick-calculation').forEach((el) => {
+        el.innerText = Math.round(
+            ((switchData[switchData.length - 1] / stickData[stickData.length - 1]) + Number.EPSILON) * 100
+        ) / 100;
+    });
+
+
+
+
 }
 
 
@@ -235,6 +329,8 @@ function runSimulations() {
 
     drawChart(stickSetup1CumulativeResults, switchSetup1CumulativeResults);
 
+    updateConclusions(stickSetup1CumulativeResults, switchSetup1CumulativeResults);
+
 }
 
 let myChart = undefined;
@@ -242,6 +338,8 @@ let myChart = undefined;
 // Set a default number of games to simulate, and also let the user change this
 // (which will hopefully help convince them! :)
 let numberOfGamesToSimulate = 100;
+
+let numberOfSimulationSets = 10;
 
 const formEl = document.querySelector('form');
 const formRangeEl = document.querySelector('input[type=range]');

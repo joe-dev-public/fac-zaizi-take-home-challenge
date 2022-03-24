@@ -19,22 +19,46 @@
 
             <p>I've written code to play lots of simulations of the <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem</a>.</p>
             <p>The outcomes of these simulations are shown on the graph below.</p>
-            <p>The red points show the cumulative number of wins when using the "stick" strategy.</p>
-            <p>The yellow points show the cumulative number of wins when using the "switch" strategy.</p>
-            <p>The "guesses" that the simulated player makes are randomised* each time you click the "Simulate" button.</p>
+            <p>The orange points show the cumulative number of wins when using the "stick" strategy.</p>
+            <p>The blue points show the cumulative number of wins when using the "switch" strategy.</p>
+            <p>The "guesses" that the simulated player makes are randomised<sup id="footnote-1" class="footnote"><a href="#footnote-1-ref">[1]</a></sup> each time you click the "Simulate" button.</p>
             <p>The shape of the plots varies, but the switch strategy clearly leads to a greater number of wins.</p>
-            <p>*(pseudo-randomised using JavaScript's Math.random, which has an "approximately uniform distribution")</p>
 
-            <form>
-                <input type="range" step="10" min="10" max="1000">
-                <input type="submit" value="Simulate this many games">
-            </form>
+            <section>
+                <form>
+                    <input type="range" step="10" min="10" max="1000">
+                    <input type="submit" value="Simulate this many games">
+                </form>
 
-            <div>
-                <canvas id="chart"></canvas>
-            </div>
+                <div>
+                    <canvas id="chart"></canvas>
+                </div>
+            </section>
+
+            <section>
+                <h2>What the graph shows:</h2>
+                <p>After <span class="total-number-of-games stat"></span> games, the stick strategy produced <span class="total-number-of-stick-wins stat"></span> wins, and the switch strategy produced <span class="total-number-of-switch-wins stat"></span> wins.</p>
+                <p>So, for the <span class="total-number-of-games stat"></span> games simulated, the switch strategy produced about <span class="switch-vs-stick-calculation stat"></span> more wins than the stick strategy.</p>
+                <p>In other words, <b>the switch strategy is about twice as successful as the stick strategy</b>.</p>
+                <p>This tallies with vos Savant's solution, that "the switching strategy has a 2/3 probability of winning the car, while the strategy that remains with the initial choice has only a 1/3 probability" (<a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">source</a>).<!-- In other words, that the switch strategy is twice as probable to win as the stick strategy.--></p>
+            </section>
+
+            <!--
+            <section>
+                <h2>Now simulate <span class="total-number-of-games stat"></span> games 10 times:</h2>
+                <div>
+                    <canvas id="chart2"></canvas>
+                </div>
+            </section>
+            -->
 
         </main>
+
+        <footer>
+            <ol id="footnotes">
+                <li id="footnote-1-ref">Pseudo-randomised using JavaScript's Math.random, which has an "approximately uniform distribution" <a href="#footnote-1" class="footnote-return">[return]</a></li>
+            </ol>
+        </footer>
 
     </div>
 </body>
