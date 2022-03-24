@@ -109,70 +109,6 @@ function drawChart(stickData, switchData) {
 
 
 
-    // Now draw the second chart
-    // It'll need new data to be generated: 10 randomised sets of x simulations
-    // plus a basic linear regression (Trend line) calc beneath?
-
-/*     const myLabels2 = [];
-    for (let i = 1; i <= numberOfSimulationSets; i++) {
-        myLabels.push(i);
-    }
-
-    const data = {
-        labels: myLabels,
-        datasets: [
-            {
-                label: '"Stick" strategy',
-                backgroundColor: 'rgb(255, 128, 0)',
-                //data: stickData,
-            },
-            {
-                label: '"Switch" strategy',
-                backgroundColor: 'rgb(0, 128, 255)',
-                //data: switchData,
-            },
-        ]
-    };
-
-    const config = {
-        type: 'scatter',
-        data: data,
-        options: {
-            events: [], // Don't need scatter point details on mouse hover
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: "Simulation set",
-                    },
-                },
-                y: {
-                    beginAtZero: true,
-                    suggestedMin: 0,
-                    //suggestedMax: numberOfGamesToSimulate,
-                    title: {
-                        display: true,
-                        text: 'Total number of switch wins / total number of stick wins',
-                    },
-                },
-            },
-        },
-    };
-
-    // Make the text a bit bigger:
-    Chart.defaults.font.size = 16;
-
-    if (myChart) {
-        // If chart already exists, destroy it before creating a new one:
-        myChart.destroy();
-    } 
-
-    myChart = new Chart(
-        document.getElementById('chart'),
-        config
-    ); */
-
-
 }
 
 
@@ -198,7 +134,22 @@ function updateConclusions(stickData, switchData) {
         ) / 100;
     });
 
+    document.querySelectorAll('.total-number-of-simulation-sets').forEach((el) => {
+        el.innerText = numberOfSimulationSets;
+    });
+    
+
 }
+
+
+
+function storeResults(totalNumberOfStickWins, totalNumberOfSwitchWins) {
+
+    allStickResults.push(totalNumberOfStickWins);
+    allSwitchResults.push(totalNumberOfSwitchWins);
+
+}
+// End of function storeResults
 
 
 
@@ -273,6 +224,9 @@ function runSimulationsB() {
 
     updateConclusions(stickCumulativeResults, switchCumulativeResults);
 
+    // Store just the final cumulative score (number of wins)
+    storeResults(stickCumulativeResults[stickCumulativeResults.length - 1], switchCumulativeResults[switchCumulativeResults.length - 1]);
+
     // That's a reasonable "proof".
     // To be more convincing, could the code "play the game" more than it currently does?
 
@@ -280,14 +234,108 @@ function runSimulationsB() {
 // End of function runSimulationsB
 
 
+function drawAggregateChart(myData) {
+
+    // Now draw the second chart
+    // It'll need new data to be generated: 10 randomised sets of x simulations
+    // plus a basic linear regression (Trend line) calc beneath?
+
+    const myLabels = [];
+    for (let i = 1; i <= numberOfSimulationSets; i++) {
+        myLabels.push(i);
+    }
+
+    const data = {
+        labels: myLabels,
+        datasets: [
+            {
+                label: 'Success of "switch" vs "stick" strategy',
+                backgroundColor: 'rgb(128, 200, 0)',
+                data: myData,
+            },
+        ]
+    };
+
+    const config = {
+        type: 'scatter',
+        data: data,
+        options: {
+            events: [],
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Simulation set",
+                    },
+                },
+                y: {
+                    beginAtZero: true,
+                    suggestedMin: 0,
+                    suggestedMax: 5,
+                    title: {
+                        display: true,
+                        text: 'Total number of switch wins / total number of stick wins',
+                    },
+                },
+            },
+        },
+    };
+
+    // Make the text a bit bigger:
+    Chart.defaults.font.size = 16;
+
+    if (myChart2) {
+        // If chart already exists, destroy it before creating a new one:
+        myChart2.destroy();
+    } 
+
+    myChart2 = new Chart(
+        document.getElementById('chart2'),
+        config
+    );
+
+}
+
+
+
+function runMultipleSimulationSets() {
+
+    // Stop at -1 because the initial page load gives us our first set of results (graphed)
+    for (let i = 0; i < numberOfSimulationSets - 1; i++) {
+
+        runSimulationsB();
+
+    }
+
+    // Do the ratio calculations, put these in an array, and draw the relevant chart:
+
+    const ratios = [];
+
+    allSwitchResults.forEach((el, idx) => {
+        const ratio = Math.round(((el / allStickResults[idx]) + Number.EPSILON) * 100) / 100;
+        ratios.push(ratio);
+    });
+
+    console.log(ratios);
+
+    drawAggregateChart(ratios);
+
+}
+
+
+
+let allStickResults = [];
+let allSwitchResults = [];
+
 
 let myChart = undefined;
+let myChart2 = undefined;
 
 // Set a default number of games to simulate, and also let the user change this
 // (which will hopefully help convince them! :)
 let numberOfGamesToSimulate = 100;
 
-let numberOfSimulationSets = 10;
+let numberOfSimulationSets = 50;
 
 const formEl = document.querySelector('form');
 const formRangeEl = document.querySelector('input[type=range]');
@@ -307,3 +355,5 @@ formEl.addEventListener('submit', (event) => {
 });
 
 runSimulationsB();
+
+runMultipleSimulationSets();
