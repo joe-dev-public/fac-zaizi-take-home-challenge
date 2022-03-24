@@ -1,7 +1,45 @@
 * {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.5;
 }
+
+body {
+    margin: 1rem;
+}
+
+.text p {
+    font-size: 1.15rem;
+}
+
+header, .text, form, footer {
+    margin: 0 auto;
+    max-width: 32rem;
+}
+
+h2 {
+    margin-top: 1.75rem;
+}
+
+form {
+    background-color: hsl(0, 0%, 95%);
+    /* border: 1px solid lightgrey; */
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
+    padding: 0.2rem 0.5rem 0.5rem 0.5rem;
+    text-align: center;
+}
+
+input[type='range'] {
+    margin-right: 1rem;
+    position: relative;
+    top: 0.4rem;
+    /* width: 14rem; */
+}
+
+/* input[type='submit'] {
+    padding: 0.25rem;
+} */
 
 .stat {
     font-weight: bold;

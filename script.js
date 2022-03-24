@@ -250,7 +250,7 @@ function drawAggregateChart(myData) {
         datasets: [
             {
                 label: 'Success of "switch" vs "stick" strategy',
-                backgroundColor: 'rgb(128, 200, 0)',
+                backgroundColor: 'rgb(255, 128, 128)',
                 data: myData,
             },
         ]
@@ -316,8 +316,6 @@ function runMultipleSimulationSets() {
         ratios.push(ratio);
     });
 
-    console.log(ratios);
-
     drawAggregateChart(ratios);
 
 }
@@ -327,7 +325,6 @@ function runMultipleSimulationSets() {
 let allStickResults = [];
 let allSwitchResults = [];
 
-
 let myChart = undefined;
 let myChart2 = undefined;
 
@@ -335,7 +332,7 @@ let myChart2 = undefined;
 // (which will hopefully help convince them! :)
 let numberOfGamesToSimulate = 100;
 
-let numberOfSimulationSets = 50;
+let numberOfSimulationSets = 25;
 
 const formEl = document.querySelector('form');
 const formRangeEl = document.querySelector('input[type=range]');
@@ -352,6 +349,7 @@ formEl.addEventListener('submit', (event) => {
     event.preventDefault();
     numberOfGamesToSimulate = formRangeEl.value;
     runSimulationsB();
+    runMultipleSimulationSets();
 });
 
 runSimulationsB();

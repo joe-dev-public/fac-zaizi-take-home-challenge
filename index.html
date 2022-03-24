@@ -6,6 +6,11 @@
     <title>Joe's Zaizi take-home challenge</title>
     <script src="script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,40 +22,46 @@
 
         <main>
 
-            <p>I've written code to play lots of simulations of the <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem</a>.</p>
-            <p>The outcomes of these simulations are shown on the graph below.</p>
-            <p>The orange points show the cumulative number of wins when using the "stick" strategy.</p>
-            <p>The blue points show the cumulative number of wins when using the "switch" strategy.</p>
-            <p>The "guesses" that the simulated player makes are randomised<sup id="footnote-1" class="footnote"><a href="#footnote-1-ref">[1]</a></sup> each time you click the "Simulate" button.</p>
-            <p>The shape of the plots varies, but the switch strategy clearly leads to a greater number of wins.</p>
+            <section class="text">
+                <h2>Summary</h2>
+                <p>I've written code to play lots of simulations of the <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem</a>. The outcomes are visualised in two graphs below.</p>
+                <p><b>The two graphs show different things,</b> but they're both here to try and convince you that <b>the "switch" strategy is more successful than the "stick" strategy</b>.</p>
+                <p>The initial guesses that the simulated player makes are randomised<sup id="footnote-1" class="footnote"><a href="#footnote-1-ref">[1]</a></sup> when this page first loads, and each time you <b>click the Simulate button</b>.</p>
+                <p><b>Try adjusting the slider</b> below (then click the button) to vary the number of simulations, and see how the shape of the graph varies. (This <em>might</em> or <em>might not</em> help convince you! And >150 simulations might take a moment to load.) 🙂</p>
+            </section>
 
             <section>
                 <form>
                     <input type="range" step="10" min="10" max="1000">
                     <input type="submit" value="Simulate this many games">
                 </form>
-
                 <div>
                     <canvas id="chart"></canvas>
                 </div>
             </section>
 
-            <section>
-                <h2>What the graph shows:</h2>
+            <section class="text">
+                <h2>What the graph above shows:</h2>
                 <p>After <span class="total-number-of-games stat"></span> games, the stick strategy produced <span class="total-number-of-stick-wins stat"></span> wins, and the switch strategy produced <span class="total-number-of-switch-wins stat"></span> wins.</p>
                 <p>So, for the <span class="total-number-of-games stat"></span> games simulated, the switch strategy produced about <span class="switch-vs-stick-calculation stat"></span> more wins than the stick strategy.</p>
                 <p>In other words, <b>the switch strategy is about twice as successful as the stick strategy</b>.</p>
-                <p>This tallies with vos Savant's solution, that "the switching strategy has a 2/3 probability of winning the car, while the strategy that remains with the initial choice has only a 1/3 probability" (<a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">source</a>).<!-- In other words, that the switch strategy is twice as probable to win as the stick strategy.--></p>
+                <p>This tallies with vos Savant's solution, which says that "the switching strategy has a 2/3 probability of winning the car, while the strategy that remains with the initial choice has only a 1/3 probability" (<a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">source</a>).<!-- In other words, that the switch strategy is twice as probable to win as the stick strategy.--></p>
+                <p>But if this calculation from one set of simulations doesn't convince you...</p>
+                <h2>Let's simulate <span class="total-number-of-games stat"></span> games <span class="total-number-of-simulation-sets stat"></span> times:</h2>
             </section>
-
             
             <section>
-                <h2>Now simulate <span class="total-number-of-games stat"></span> games <span class="total-number-of-simulation-sets stat"></span> times:</h2>
                 <div>
                     <canvas id="chart2"></canvas>
                 </div>
             </section>
-            
+
+            <section class="text">
+                <h2>What this second graph shows:</h2>
+                <p>Each point shows the result of dividing the total number of "switch" wins for a given simulation by the total number of "stick" wins.</p>
+                <p>Each of the <span class="total-number-of-simulation-sets stat"></span> sets of simulated games has a slightly different outcome, but this graph shows us that there's a trend.</p>
+                <p>The points are clustered around a value of 2. In other words: the total number of wins for the "switch" strategy is consistently about twice that of the "stick" strategy.</p>
+            </section>
 
         </main>
 
