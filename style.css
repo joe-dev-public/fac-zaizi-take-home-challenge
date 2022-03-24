@@ -17,6 +17,11 @@ header, .text, form, footer {
     max-width: 32rem;
 }
 
+.canvas-container {
+    margin: 0 auto;
+    max-width: 64rem;
+}
+
 h2 {
     margin-top: 1.75rem;
 }
