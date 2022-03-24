@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joe's Zaizi take-home challenge</title>
     <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +16,24 @@
         </header>
 
         <main>
+
+            <!--
+            <div>
+                <canvas id="chart1"></canvas>
+            </div>
+            <div>
+                <canvas id="chart2"></canvas>
+            </div>
+            -->
+            <p>I've written code to play lots of simulations of the <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem">Monty Hall problem</a>.</p>
+            <p>The outcomes of these simulations are shown on the graph below.</p>
+            <p>The red points show the cumulative number of wins when using the "stick" strategy.</p>
+            <p>The yellow points show the cumulative number of wins when using the "switch" strategy.</p>
+            <p>The "guesses" that the simulated player makes are randomised* each time this page is loaded, so if you want to convince yourself further, try reloading the page a few times and see how the graph changes. The shape of the plots varies, but the switch strategy clearly leads to a greater number of wins.</p>
+            <p>*(pseudo-randomised using JavaScript's Math.random, which has an "approximately uniform distribution")</p>
+            <div>
+                <canvas id="chart3"></canvas>
+            </div>
 
         </main>
 
