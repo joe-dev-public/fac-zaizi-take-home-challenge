@@ -4,6 +4,7 @@
 
 - View the deployed challenge on GitHub Pages here: https://joe-dev-public.github.io/fac-zaizi-take-home-challenge/
 - Read the text, and try changing the number of simulations by adjusting the slider and clicking the button.
+- A larger number of simulations should be more convincing! 🙂
 - Note that the stats and calculations (inline numbers in bold text) change when new simulations are run.
 
 ## Known issues
