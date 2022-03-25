@@ -42,7 +42,6 @@
 */
 
 
-
 function drawChart(stickData, switchData) {
 
     // Scatter plot game results and a trend line should emerge to the viewer.
@@ -107,10 +106,7 @@ function drawChart(stickData, switchData) {
         config
     );
 
-
-
-}
-
+} // End of function drawChart
 
 
 function updateConclusions(stickData, switchData) {
@@ -138,19 +134,14 @@ function updateConclusions(stickData, switchData) {
         el.innerText = numberOfSimulationSets;
     });
     
-
-}
-
+} // End of function updateConclusions
 
 
 function storeResults(totalNumberOfStickWins, totalNumberOfSwitchWins) {
-
     allStickResults.push(totalNumberOfStickWins);
     allSwitchResults.push(totalNumberOfSwitchWins);
-
 }
 // End of function storeResults
-
 
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -159,7 +150,6 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
-
 
 
 function runSimulationsB() {
@@ -281,11 +271,9 @@ function drawAggregateChart(myData) {
         },
     };
 
-    // Make the text a bit bigger:
     Chart.defaults.font.size = 16;
 
     if (myChart2) {
-        // If chart already exists, destroy it before creating a new one:
         myChart2.destroy();
     } 
 
@@ -297,18 +285,14 @@ function drawAggregateChart(myData) {
 }
 
 
-
 function runMultipleSimulationSets() {
 
     // Stop at -1 because the initial page load gives us our first set of results (graphed)
     for (let i = 0; i < numberOfSimulationSets - 1; i++) {
-
         runSimulationsB();
-
     }
 
     // Do the ratio calculations, put these in an array, and draw the relevant chart:
-
     const ratios = [];
 
     allSwitchResults.forEach((el, idx) => {
@@ -321,17 +305,17 @@ function runMultipleSimulationSets() {
 }
 
 
-
+// Set up a few global variables:
 let allStickResults = [];
 let allSwitchResults = [];
 
 let myChart = undefined;
 let myChart2 = undefined;
 
-// Set a default number of games to simulate, and also let the user change this
-// (which will hopefully help convince them! :)
+// Set a default number of games to simulate, and also let the user change this:
 let numberOfGamesToSimulate = 100;
 
+// Set a default number of simulation sets:
 let numberOfSimulationSets = 25;
 
 const formEl = document.querySelector('form');
@@ -352,6 +336,7 @@ formEl.addEventListener('submit', (event) => {
     runMultipleSimulationSets();
 });
 
+// Run initial simulation and set of multiple simulations on page load:
 runSimulationsB();
 
 runMultipleSimulationSets();
