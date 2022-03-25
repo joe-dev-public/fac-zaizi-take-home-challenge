@@ -22,3 +22,6 @@
 - Improve the simulation? e.g.:
   - better pseudo-random number generation?
   - could the game logic be more "convincing" somehow?
+- Improve the explanation text? e.g.:
+  - A note about the gradients of the (emergent lines) in the first graph? (i.e. switch is twice as steep as stick?)
+  - Following from that, a note about the gap between the stick and switch lines? (i.e. switch is usually "ahead" of stick, not just after x simulations).
