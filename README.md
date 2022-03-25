@@ -25,3 +25,7 @@
 - Improve the explanation text? e.g.:
   - A note about the gradients of the (emergent lines) in the first graph? (i.e. switch is twice as steep as stick?)
   - Following from that, a note about the gap between the stick and switch lines? (i.e. switch is usually "ahead" of stick, not just after x simulations).
+- Improve the mathematical rigour and explanation? e.g.:
+  - Proper linear regression calculations.
+  - Consider standard deviation in second graph.
+  - (Of course the current implementation is just supposed to provide "visual reassurance" to a user who is casually sceptical of vos Savant's solution, not a rigorous proof. :)
